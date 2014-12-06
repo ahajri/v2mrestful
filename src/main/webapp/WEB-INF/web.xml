@@ -48,7 +48,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<!-- - Servlet that dispatches request to registered handlers (Controller 
 		implementations). -->
 	<servlet>
-		<servlet-name>vmsg</servlet-name>
+		<servlet-name>vmail</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -58,8 +58,32 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>vmsg</servlet-name>
+		<servlet-name>vmail</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<error-page>
+		<!-- Missing login -->
+		<error-code>401</error-code>
+		<location>/general-error.html</location>
+	</error-page>
+	
+	<error-page>
+		<!-- Forbidden directory listing -->
+		<error-code>403</error-code>
+		<location>/general-error.html</location>
+	</error-page>
+	
+	<error-page>
+		<!-- Uncaught exception -->
+		<error-code>500</error-code>
+		<location>/general-error.html</location>
+	</error-page>
+	
+	<error-page>
+		<!-- Unsupported servlet method -->
+		<error-code>503</error-code>
+		<location>/general-error.html</location>
+	</error-page>
 
 </web-app>

@@ -3,39 +3,24 @@ package com.ahajri.v2m.domain;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ahajri.v2m.domain.repository.PersonRepository;
+import com.ahajri.v2m.config.DatabaseConfigProfile;
 
+@ActiveProfiles(DatabaseConfigProfile.POSTGRESQL)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
-(
-// locations = { "classpath*:**/WEB-INF/classes/spring/application-config.xml"
-// }
-loader = AnnotationConfigContextLoader.class
-//, classes = { TestContextConfig.class }
- )
+@ContextConfiguration(locations = { "classpath:spring/application-config.xml" }
+
+// classes = { JpaPostgreSqlConfig.class,
+// IntegrationTestConfig.class }
+)
 @Transactional
+@Configurable
 public abstract class AIntegrationTest<T> {
-	
-	@Configuration
-	@ImportResource("classpath*:**/WEB-INF/classes/spring/application-config.xml")
-	static class ContextConfiguration{
-		
-		@Bean
-		public PersonRepository personRepository(){
-			return new PersonRepository();
-		}
-		
-		
-		
-	}
 
 	public T dummyDomain;
 
